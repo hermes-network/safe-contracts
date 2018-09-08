@@ -11,10 +11,10 @@ var MultiSend = artifacts.require("./MultiSend.sol");
 const notOwnedAddress = "0x0000000000000000000000000000000000000002"
 const notOwnedAddress2 = "0x0000000000000000000000000000000000000003"
 
-module.exports = function(deployer) {
+module.exports = function(deployer, network, accounts) {
     deployer.deploy(ProxyFactory);
     deployer.deploy(GnosisSafePersonalEdition).then(function (safe) {
-        safe.setup([notOwnedAddress], 1, 0, 0)
+        safe.setup([accounts[0]], 1, 0, 0)
         return safe
     });
     deployer.deploy(StateChannelModule).then(function (module) {
